@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const coolRouter = require('./routes/cool');
+const catalogRouter = require("./routes/catalog"); //Import routes for "catalog" area of site
 
 const app = express();
 
@@ -15,25 +15,28 @@ const app = express();
 mongoose.set("strictQuery", false);
 const mongoDB = "mongodb+srv://hankam:library156@cluster0.trw1rmu.mongodb.net/local_library?retryWrites=true&w=majority";
 
-async funcction main(){
+async function main(){
   await mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 }
+
 main().catch(err => console.log(err));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.set('view engine', 'pug');
 
 //middleware
+// Middleware are functions that have access to the request and response objects and can perform tasks or modify them before they reach the route handlers.
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//route handling
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/cool', coolRouter);
+app.use("/catalog", catalogRouter); // Add catalog routes to middleware chain.
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -52,8 +55,8 @@ app.use(function(err, req, res, next) {
 });
 
 //listen to port 3000 by default
-app.listen(process.env.PORT || 3000, function(){
-  console.log('Server is running on port 3000');
+app.listen(process.env.PORT || 8080, function(){
+  console.log('Server is running on port 8080');
 });
 
 module.exports = app;
