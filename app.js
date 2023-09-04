@@ -55,8 +55,8 @@ app.use(function(err, req, res, next) {
 });
 
 //listen to port 8080 by default
-app.listen(process.env.PORT || 8080, function(){
-  console.log('Server is running on port 8080');
+app.listen(process.env.PORT || 7787, function(){
+  console.log('Server is running');
 });
 
 module.exports = app;
