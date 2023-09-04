@@ -13,7 +13,7 @@ const app = express();
 
 //set up a mongoose connection
 mongoose.set("strictQuery", false);
-const mongoDB = process.env.CON_STR;
+const mongoDB = "mongodb+srv://hankam:library156@cluster0.trw1rmu.mongodb.net/local_library?retryWrites=true&w=majority";
 
 async function main(){
   await mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
@@ -56,7 +56,8 @@ app.use(function(err, req, res, next) {
 
 //listen to port 8080 by default
 app.listen(process.env.PORT, function(){
-  console.log('Server is running');
+  console.log(`Server is running on port ${process.env.PORT}
+  connection string is ${mongoDB}`);
 });
 
 module.exports = app;
