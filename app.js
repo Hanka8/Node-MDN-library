@@ -13,7 +13,7 @@ const app = express();
 
 //set up a mongoose connection
 mongoose.set("strictQuery", false);
-const mongoDB = "mongodb+srv://hankam:library156@cluster0.trw1rmu.mongodb.net/local_library?retryWrites=true&w=majority";
+const mongoDB = process.env.CON_STR;
 
 async function main(){
   await mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
